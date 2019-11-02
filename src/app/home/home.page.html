@@ -1,14 +1,41 @@
+<!-- <ion-label>MM DD YY</ion-label> -->
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
+  
+  <div>
+
+    <!-- <ion-label>Data</ion-label> -->
+    <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="dataNdeshje" (ngModelChange)="dataChange()"></ion-datetime>
+  </div>
+
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="filterItems()" placeholder="Kerko"> </ion-searchbar>
+
 </ion-header>
 
+
+
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+
+  <ion-list *ngFor="let ndeshja of ndeshjetFilter">
+      <ion-list-header>
+          <ion-label>{{ndeshja.kampionati}}</ion-label>
+        </ion-list-header>
+    <ion-item [ngClass]="{'make-green': getrezultatiWinner(ndeshja.rezultati)=='green' , 'make-red':getrezultatiWinner(ndeshja.rezultati)=='red' , 'make-black':getrezultatiWinner(ndeshja.rezultati)=='black'}" href={{ndeshja.id}}>
+    
+          
+      
+          <!-- <div style="display: inline;color: steelblue;"> {{ ndeshja.totali }}</div> -->
+          <ion-note slot="end" color="primary"> {{ ndeshja.totali }}</ion-note>
+          <ion-note slot="start" [ngClass]="{'make-green':getrezultatiWinner(ndeshja.rezultati)}"> {{ ndeshja.rezultati }}</ion-note>
+          <ion-label>
+              <div>
+                  <!-- <h4 style="text-align: center;">{{ndeshja.kampionati}}</h4> -->
+          <div style="display: inline;margin-left:5%;"> {{ndeshja.home}} - {{ ndeshja.away }} </div>
+        
+          <!-- <div style="text-align: center;"> {{ ndeshja.rezultati }}</div> -->
+        </div>
+        <!-- {{ ndeshja.totali }} {{ndeshja.home}} - {{ ndeshja.away }} {{ ndeshja.rezultati }} -->
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
